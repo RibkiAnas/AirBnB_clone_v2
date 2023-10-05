@@ -5,7 +5,7 @@ Fabric script (based on the file
 archive to your web servers
 """
 from fabric.api import *
-from os.path import path
+import os
 
 
 env.hosts = ["52.72.79.60", "100.25.136.86"]
@@ -16,14 +16,14 @@ def do_deploy(archive_path):
     Distributes an archive to the web
     servers
     """
-    if path.exists(archive_path) is False:
+    if os.path.exists(archive_path) is False:
         return False
     try:
+        """Upload the archive"""
         put(archive_path, "/tmp/")
         """Get the file name without ext"""
         file_name = archive_path.split("/")[-1]
         no_ext = file_name.split(".")[0]
-        """Upload the archive"""
         """Uncompress the archive"""
         run("mkdir -p /data/web_static/releases/{}".format(no_ext))
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}"
