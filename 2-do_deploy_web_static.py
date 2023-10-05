@@ -19,14 +19,14 @@ def do_deploy(archive_path):
     if os.path.exists(archive_path) is False:
         return False
     try:
-        """Upload the archive"""
-        put(archive_path, "/tmp/")
         """Get the file name without ext"""
         file_name = archive_path.split("/")[-1]
         no_ext = file_name.split(".")[0]
+        """Upload the archive"""
+        put(archive_path, "/tmp/")
         """Uncompress the archive"""
-        run("mkdir -p /data/web_static/releases/{}".format(no_ext))
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}"
+        run("mkdir -p /data/web_static/releases/{}/".format(no_ext))
+        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(file_name, no_ext))
         """Delete the archive"""
         run("rm /tmp/{}".format(file_name))
@@ -42,5 +42,5 @@ def do_deploy(archive_path):
         run("ln -s /data/web_static/releases/{} /data/web_static/current"
             .format(no_ext))
         return True
-    except Exception as e:
+    except Exception:
         return False
