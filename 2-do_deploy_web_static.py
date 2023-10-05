@@ -31,17 +31,15 @@ def do_deploy(archive_path):
             .format(file_name, no_ext))
         """Delete the archive"""
         run("rm /tmp/{}".format(file_name))
-        """Move contents to host web_static"""
-        run('mv /data/web_static/releases/{}/web_static/* \
+        """Move content to host web_static"""
+        run('sudo mv /data/web_static/releases/{}/web_static/* \
 /data/web_static/releases/{}/'.format(no_ext, no_ext))
-        """Remove web_static dir"""
-        run('rm -rf /data/web_static/releases/{}/web_static'
-            .format(no_ext))
         """Delete the symbolic link"""
         run("rm -rf /data/web_static/current")
         """Create a new symbolic link"""
-        run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
+        run("ln -s /data/web_static/releases/{} /data/web_static/current"
             .format(no_ext))
+        print("New version deployed!")
         return True
     except Exception as e:
         return False
