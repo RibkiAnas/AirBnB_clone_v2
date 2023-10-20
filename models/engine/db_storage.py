@@ -82,7 +82,7 @@ class DBStorage:
         if remove:
             Session.remove()
         self.__session = Session
-        
+
     def close(self):
         """Removes the current session if active"""
         self.__session.remove()
