@@ -5,3 +5,4 @@ main_delete.py
 *.json
 /versions
 /myenv
+100-dump.sql
