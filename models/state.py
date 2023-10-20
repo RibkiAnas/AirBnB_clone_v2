@@ -18,6 +18,7 @@ class State(BaseModel, Base):
     else:
         name = ""
 
+    if models.storage_t != 'db':
         @property
         def cities(self):
             """Method that gets cities"""
